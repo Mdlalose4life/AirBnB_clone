@@ -15,13 +15,13 @@ from models import storage
 class HBNBCommand(cmd.Cmd):
   prompt = "hbnb "
 
-  my_dict = {
+  clss = {
     "BaseModel": BaseModel,
     "User": User,
-    "Amenity": Amenity,
+    "Amenity": Amenity
   }
 
-  my_dict1 = {
+  clss1 = {
   	"State": State,
   	"City": City,
   	"Review": Review,
@@ -29,12 +29,12 @@ class HBNBCommand(cmd.Cmd):
   	}
 
 
-my_dict.update(my_dict1)
+  clss.update(clss1)
 
 
 def do_quit(self, line):
   """Does nothing."""
-  pass
+  return True
 
 
 def emptyline(self):
@@ -57,8 +57,8 @@ def do_create(self, line):
     print("** class name missing **")
     return
 
-  elif line[0] in HBNBCommand.my_dict:
-    new_obj = HBNBCommand.my_dict[line[0]]()
+  elif line[0] in HBNBCommand.clss:
+    new_obj = HBNBCommand.clss[line[0]]()
 
   else:
     print("** class doesn't exist **")
@@ -77,7 +77,7 @@ def do_show(self, line):
     print("** class name missing **")
     return
 
-  elif line[0] not in HBNBCommand.my_dict:
+  elif line[0] not in HBNBCommand.clss:
     print("** class doesn't exist **")
     return
 
@@ -108,13 +108,14 @@ def do_destroy(self, line):
     print("** class name missing **")
     return
 
-  elif line[0] not in HBNBCommand.classes:
+  elif line[0] not in HBNBCommand.clss:
     print("** class doesn't exist **")
     return
 
   elif len(line) == 1:
     print("** instance id missing **")
     return
+
   else:
     bool = False
     compare = f"{line[0]}.{line[1]}"
@@ -143,7 +144,7 @@ def do_all(self, line):
     print(list)
 
   elif len(line) == 1:
-    if line[0] in HBNBCommand.my_dict:
+    if line[0] in HBNBCommand.clss:
       for key, value in all_objs.items():
         if line[0] in key:
           list.append(str(value))
@@ -161,7 +162,7 @@ def do_update(self, line):
     print("** class name missing **")
     return
 
-  elif line[0] not in HBNBCommand.my_dict:
+  elif line[0] not in HBNBCommand.clss:
     print("** class doesn't exist **")
     return
 
