@@ -4,9 +4,7 @@ from models.base_model import BaseModel
 
 
 class Review(BaseModel):
-  """Review class inherits attribut from BaseModel"""
-
-  place_id = ""
-  user_id = ""
-  text = ""
-
+    """Review class inherits attribut from BaseModel"""
+    place_id = ""
+    user_id = ""
+    text = ""

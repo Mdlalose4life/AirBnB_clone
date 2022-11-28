@@ -5,7 +5,7 @@ from models.base_model import BaseModel
 
 
 class State(BaseModel):
-  """class States public attributes"""
-  
-  name = ""
 
+    """class States public attributes"""
+
+    name = ""
