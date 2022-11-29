@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 """ testing User """
-
 import unittest
 import pep8
+from models import user
 from models.user import User
+from models.base_model import BaseModel
 
 class User_testing(unittest.TestCase):
     """ check BaseModel """
