@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 """ Check Filestorage class """
 import unittest
+import os
+import models
+import json
+import pep8
 from os import path
 from models import storage
 from models.user import User

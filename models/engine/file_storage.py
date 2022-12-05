@@ -5,7 +5,7 @@ and deserializes JSON file to Instances
 """
 import json
 import uuid
-import sys
+import os
 from os.path import exists
 from models.base_model import BaseModel
 from models.user import User
@@ -20,38 +20,31 @@ class FileStorage:
     """serializes and deserializes instances to a JSON file"""
     __file_path = "file.json"
     __objects = {}
-    dict0 = {
-        "BaseModel": BaseModel,
-        "Amenity": Amenity,
-        "User": User
-    }
-    dict1 = {
-        "State": State,
-        "City": City,
-        "Review": Review,
-        "Place": Place
-    }
-    
-    dict0.update(dict1)
+
     def all(self):
         """returns the dict representation of '__objects'"""
         return FileStorage.__objects
-    def new(self, obj_key):
+    
+    def new(self, obj):
         """sets in '__objects the object with key '<obj class name>.id"""
-        each_key = f"{type(obj_key).__name__}.{obj.id}"
-        FileStorage.__objects[each_key] = obj_key
+        each_key = obj.__class__.__name__
+        FileStorage.__objects["{}.{}".format(each_key, obj.id)] = obj
+
     def save(self):
         """Serializes '__objects into a JSON file"""
-        serialze_dict = {}
-        for each_key, each_value in FileStorage.__objects.iterm():
-            serialze_dict[each_key] = each_value.to_dict()
-        with open(FileStorage.__file_path, "w") as file:
-            json.dump(serialze_dict, file)   
+        serialze_dict = FileStorage.__objects
+        ser_dict = {obj: serialze_dict[obj].to_dict() for obj in ser_dict.keys()}
+        with open(FileStorage.__file_path, "w") as f:
+            json.dump(ser_dict, f)
+
     def reload(self):
         """Deserializes the JSON file to __objects"""
-        if exists(FileStorage.__file_path):
-            with open(FileStorage.__file_path, "r") as file:
-                for each_key, each_value in FileStorage.__objects.iterm():
-                    obj_key = FileStorage.__objects
-                    obj_key[each_key] = FileStorage.dict
-                    [each_value["__class__"]](**each_value)
+        try:
+            with open(FileStorage.__file_path) as f:
+                ser_dict = json.load(f)
+                for o in ser_dict.values():
+                    cls_name = o["__class__"]
+                    del o["__class__"]
+                    self.new(eval(cls_name)(**o))
+        except FileNotFoundError:
+            return
