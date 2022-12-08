@@ -1,9 +1,13 @@
 #!/usr/bin/python3
 """ testing Amenity """
+<<<<<<< HEAD
 import unittest 
 import pep8
 import datetime
 
+=======
+import unittest
+>>>>>>> dafb60fd86a393d01ae7e80a958cd64d1464792a
 from models.amenity import Amenity
 from models.base_model import BaseModel
 
